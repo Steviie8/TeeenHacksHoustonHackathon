@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TripleH.hck — Teens Hack Houston</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#060911;
+    --bg-2:#0a0f1a;
+    --panel:#0d1420;
+    --panel-border:#1c2636;
+    --cyan:#38d6f5;
+    --blue:#4f8cff;
+    --purple:#8b6bff;
+    --text:#eaf2f8;
+    --muted:#8494a8;
+    --muted-2:#5c6b80;
+    --mono:'JetBrains Mono', monospace;
+    --display:'Space Grotesk', sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--display);
+    overflow-x:hidden;
+    line-height:1.5;
+  }
+
+  /* ambient glow background */
+  .glow-field{
+    position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
+  }
+  .glow{
+    position:absolute; border-radius:50%; filter:blur(90px); opacity:.35;
+    animation: drift 22s ease-in-out infinite;
+  }
+  .glow-1{ width:520px; height:520px; background:#1c5bd6; top:-140px; left:-160px; }
+  .glow-2{ width:460px; height:460px; background:#3aa9e0; top:30%; right:-180px; animation-delay:-8s; }
+  .glow-3{ width:600px; height:600px; background:#2447a8; bottom:-220px; left:20%; animation-delay:-15s; }
+
+  @keyframes drift{
+    0%,100%{ transform:translate(0,0) scale(1); }
+    50%{ transform:translate(30px,-40px) scale(1.08); }
+  }
+
+  section, header, footer{ position:relative; z-index:1; }
+
+  a{ color:inherit; text-decoration:none; }
+
+  /* nav */
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 48px;
+    border-bottom:1px solid rgba(255,255,255,0.05);
+    position:sticky; top:0; z-index:50;
+    background:rgba(6,9,17,0.75);
+    backdrop-filter:blur(14px);
+  }
+  .logo{ display:flex; align-items:center; gap:10px; font-weight:600; font-size:15px; letter-spacing:.02em; }
+  .logo-mark{
+    width:28px; height:28px; border-radius:8px;
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--display); font-weight:700; font-size:14px; color:#fff;
+  }
+  .nav-links{ display:flex; gap:36px; font-size:14px; color:var(--muted); }
+  .nav-links a{ transition:color .2s ease; position:relative; }
+  .nav-links a:hover{ color:var(--text); }
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:-6px; height:1px; width:0;
+    background:var(--cyan); transition:width .25s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--display); font-weight:600; font-size:14px;
+    padding:11px 20px; border-radius:999px; cursor:pointer;
+    border:1px solid transparent; transition:transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-primary{
+    background:linear-gradient(120deg,#4f8cff,#8b6bff);
+    color:#fff;
+    box-shadow:0 0 0 rgba(79,140,255,0);
+  }
+  .btn-primary:hover{ box-shadow:0 8px 30px rgba(79,140,255,.35); }
+  .btn-ghost{
+    background:rgba(255,255,255,0.03);
+    border:1px solid var(--panel-border);
+    color:var(--text);
+  }
+  .btn-ghost:hover{ background:rgba(255,255,255,0.06); }
+  .btn svg{ width:14px; height:14px; transition:transform .2s ease; }
+  .btn:hover svg{ transform:translateX(3px); }
+
+  /* eyebrow */
+  .eyebrow{
+    font-family:var(--mono); font-size:12.5px; letter-spacing:.18em;
+    color:var(--cyan); text-transform:uppercase; margin-bottom:14px;
+    display:flex; align-items:center; gap:8px;
+  }
+
+  /* hero */
+  .hero{ padding:110px 48px 70px; max-width:1200px; margin:0 auto; }
+  .badge{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:12px; letter-spacing:.08em;
+    padding:7px 14px; border:1px solid var(--panel-border); border-radius:999px;
+    color:var(--muted); margin-bottom:28px;
+    opacity:0; animation:fadeUp .7s ease forwards;
+  }
+  .badge-dot{ width:6px; height:6px; border-radius:50%; background:var(--cyan); box-shadow:0 0 8px var(--cyan);
+    animation:pulse 2s ease-in-out infinite; }
+
+  @keyframes pulse{
+    0%,100%{ opacity:1; } 50%{ opacity:.35; }
+  }
+
+  h1.headline{
+    font-size:clamp(48px,8vw,88px); font-weight:700; line-height:0.98; letter-spacing:-.02em;
+  }
+  .headline .line{ display:block; opacity:0; transform:translateY(30px); animation:fadeUp .8s ease forwards; }
+  .headline .line:nth-child(2){ animation-delay:.12s; }
+  .headline .accent{
+    font-style:italic;
+    background:linear-gradient(90deg,var(--cyan),var(--blue));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  .hero-sub{
+    font-family:var(--mono); color:var(--cyan); font-size:13px; letter-spacing:.12em;
+    margin:26px 0 14px; opacity:0; animation:fadeUp .8s ease forwards; animation-delay:.24s;
+  }
+  .hero-desc{
+    color:var(--muted); font-size:17px; max-width:560px; margin-bottom:34px;
+    opacity:0; animation:fadeUp .8s ease forwards; animation-delay:.32s;
+  }
+  .hero-desc b{ color:var(--text); font-weight:600; }
+
+  .hero-ctas{
+    display:flex; gap:14px; margin-bottom:56px;
+    opacity:0; animation:fadeUp .8s ease forwards; animation-delay:.4s;
+  }
+
+  .stats{
+    display:grid; grid-template-columns:repeat(4,1fr);
+    border:1px solid var(--panel-border); border-radius:16px; overflow:hidden;
+    background:rgba(255,255,255,0.015);
+    opacity:0; animation:fadeUp .8s ease forwards; animation-delay:.5s;
+  }
+  .stat{ padding:26px 28px; border-right:1px solid var(--panel-border); }
+  .stat:last-child{ border-right:none; }
+  .stat-num{ font-size:30px; font-weight:700; color:var(--cyan); font-variant-numeric:tabular-nums; }
+  .stat-label{ font-family:var(--mono); font-size:11.5px; color:var(--muted-2); letter-spacing:.08em; text-transform:uppercase; margin-top:4px; }
+
+  @keyframes fadeUp{
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  /* generic section reveal */
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  .section{ padding:100px 48px; max-width:1200px; margin:0 auto; }
+  .section-head{ max-width:640px; margin-bottom:50px; }
+  h2.title{ font-size:clamp(32px,4.5vw,48px); font-weight:700; letter-spacing:-.01em; line-height:1.05; }
+  .title .hl{ color:var(--cyan); }
+  .section-desc{ color:var(--muted); font-size:16px; margin-top:16px; max-width:560px; }
+
+  /* motto cards */
+  .motto-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+  .motto-card{
+    background:var(--panel); border:1px solid var(--panel-border); border-radius:16px; padding:28px 24px;
+    transition:border-color .25s ease, transform .25s ease;
+  }
+  .motto-card:hover{ border-color:rgba(56,214,245,.4); transform:translateY(-4px); }
+  .motto-idx{ font-family:var(--mono); font-size:11px; color:var(--muted-2); letter-spacing:.1em; }
+  .motto-letter{ font-size:44px; font-weight:700; color:var(--cyan); margin:12px 0 6px; font-family:var(--display); }
+  .motto-word{ font-size:18px; font-weight:600; margin-bottom:8px; }
+  .motto-desc{ color:var(--muted); font-size:14px; }
+
+  /* track cards */
+  .track-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+  .track-card{
+    background:var(--panel); border:1px solid var(--panel-border); border-radius:18px; padding:32px;
+    position:relative; overflow:hidden; transition:transform .3s ease, border-color .3s ease;
+  }
+  .track-card:hover{ transform:translateY(-5px); border-color:rgba(139,107,255,.4); }
+  .track-tag{
+    position:absolute; top:32px; right:32px; font-family:var(--mono); font-size:12px; color:var(--muted-2);
+  }
+  .track-icon{
+    width:52px; height:52px; border-radius:14px; margin-bottom:22px;
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    display:flex; align-items:center; justify-content:center; color:#fff;
+  }
+  .track-icon svg{ width:24px; height:24px; }
+  .track-title{ font-size:22px; font-weight:600; margin-bottom:10px; }
+  .track-desc{ color:var(--muted); font-size:15px; margin-bottom:22px; }
+  .track-rule{ height:1px; background:linear-gradient(90deg,var(--cyan),transparent); width:60px; transition:width .35s ease; }
+  .track-card:hover .track-rule{ width:100%; }
+
+  /* event section */
+  .event-panel{
+    background:linear-gradient(135deg,#0c1524,#0a0f1c);
+    border:1px solid var(--panel-border); border-radius:24px;
+    padding:56px; display:grid; grid-template-columns:1.1fr .9fr; gap:50px; align-items:center;
+  }
+  .event-list{ margin-top:26px; display:flex; flex-direction:column; gap:12px; }
+  .event-item{ display:flex; align-items:center; gap:10px; font-size:14.5px; color:var(--text); }
+  .event-item svg{ width:16px; height:16px; color:var(--cyan); flex-shrink:0; }
+
+  .terminal{
+    background:#070b13; border:1px solid var(--panel-border); border-radius:14px; padding:22px;
+    font-family:var(--mono); font-size:13px; line-height:1.75; min-height:220px;
+  }
+  .term-top{ display:flex; align-items:center; gap:8px; margin-bottom:14px; color:var(--muted-2); font-size:12px; }
+  .term-dot{ width:9px; height:9px; border-radius:50%; }
+  .term-dot.c1{ background:#4f8cff; } .term-dot.c2{ background:#38d6f5; }
+  #term-output{ white-space:pre-wrap; color:var(--muted); }
+  #term-output .prompt{ color:var(--cyan); }
+  #term-output .ok{ color:#38d6f5; font-weight:700; }
+  .cursor{ display:inline-block; width:7px; height:14px; background:var(--cyan); margin-left:2px;
+    animation:blink 1s step-start infinite; vertical-align:middle; }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  /* FAQ */
+  .faq-item{
+    border:1px solid var(--panel-border); border-radius:14px; margin-bottom:14px; overflow:hidden;
+    background:rgba(255,255,255,0.015);
+  }
+  .faq-q{
+    display:flex; align-items:center; justify-content:space-between; padding:22px 26px;
+    cursor:pointer; font-weight:600; font-size:16px;
+  }
+  .faq-q:hover{ background:rgba(255,255,255,0.02); }
+  .faq-plus{
+    width:22px; height:22px; flex-shrink:0; position:relative;
+    color:var(--cyan);
+  }
+  .faq-plus::before, .faq-plus::after{
+    content:''; position:absolute; background:currentColor; border-radius:2px;
+    top:50%; left:50%; transform:translate(-50%,-50%);
+  }
+  .faq-plus::before{ width:14px; height:2px; }
+  .faq-plus::after{ width:2px; height:14px; transition:transform .25s ease; }
+  .faq-item.open .faq-plus::after{ transform:translate(-50%,-50%) rotate(90deg) scaleY(0); }
+
+  .faq-a{
+    max-height:0; overflow:hidden; transition:max-height .35s ease, padding .35s ease;
+    padding:0 26px; color:var(--muted); font-size:14.5px;
+  }
+  .faq-item.open .faq-a{ padding:0 26px 22px; }
+
+  /* CTA footer */
+  .cta{ text-align:center; padding:110px 48px 60px; }
+  .cta h2{ font-size:clamp(32px,5vw,52px); font-weight:700; margin-bottom:34px; }
+  .cta .hl{ color:var(--cyan); }
+
+  footer{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:26px 48px; border-top:1px solid rgba(255,255,255,0.05);
+    font-family:var(--mono); font-size:12px; color:var(--muted-2); letter-spacing:.04em;
+  }
+
+  @media(max-width:900px){
+    nav{ padding:16px 22px; } .nav-links{ display:none; }
+    .hero, .section, .cta{ padding-left:22px; padding-right:22px; }
+    .stats{ grid-template-columns:repeat(2,1fr); }
+    .stat{ border-right:1px solid var(--panel-border); }
+    .stat:nth-child(2n){ border-right:none; }
+    .stat:nth-child(n+3){ border-top:1px solid var(--panel-border); }
+    .motto-grid{ grid-template-columns:repeat(2,1fr); }
+    .track-grid{ grid-template-columns:1fr; }
+    .event-panel{ grid-template-columns:1fr; padding:32px; }
+    footer{ flex-direction:column; gap:10px; text-align:center; }
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="glow-field">
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+</div>
+
+<nav>
+  <div class="logo">
+    <div class="logo-mark">T</div>
+    TripleH<span style="color:var(--muted-2)">.hck</span>
+  </div>
+  <div class="nav-links">
+    <a href="#tracks">Tracks</a>
+    <a href="#chud">C.H.U.D</a>
+    <a href="#event">Event</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <a href="#register" class="btn btn-primary">Register</a>
+</nav>
+
+<header class="hero">
+  <div class="badge"><span class="badge-dot"></span>HOUSTON · 2026 EDITION</div>
+  <h1 class="headline">
+    <span class="line">Teens</span>
+    <span class="line">Hack <span class="accent">Houston</span></span>
+  </h1>
+  <div class="hero-sub">// TRIPLEH — T.H.H</div>
+  <p class="hero-desc">A 48-hour storm of building. Software, hardware, games, and pitches — built by teens, for teens. One motto: <b>Code. Hack. Unite. Develop.</b></p>
+  <div class="hero-ctas">
+    <a href="#register" class="btn btn-primary">Claim your spot
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+    <a href="#tracks" class="btn btn-ghost">Explore tracks</a>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-num" data-count="500">0</div><div class="stat-label">Teen Hackers</div></div>
+    <div class="stat"><div class="stat-num" data-count="48">0</div><div class="stat-label">Hours</div></div>
+    <div class="stat"><div class="stat-num" data-count="4">0</div><div class="stat-label">Tracks</div></div>
+    <div class="stat"><div class="stat-num" data-count="10" data-prefix="$" data-suffix="K+">0</div><div class="stat-label">In Prizes</div></div>
+  </div>
+</header>
+
+<section class="section" id="chud">
+  <div class="section-head reveal">
+    <div class="eyebrow">// THE MOTTO</div>
+    <h2 class="title">C.H.U.D — four moves, one rhythm.</h2>
+    <p class="section-desc">Every great hack runs the same loop. Memorize it. Live it for 48 hours.</p>
+  </div>
+  <div class="motto-grid reveal">
+    <div class="motto-card"><div class="motto-idx">01</div><div class="motto-letter">C</div><div class="motto-word">Code</div><div class="motto-desc">Write the thing. Ship the thing.</div></div>
+    <div class="motto-card"><div class="motto-idx">02</div><div class="motto-letter">H</div><div class="motto-word">Hack</div><div class="motto-desc">Bend tools to your will.</div></div>
+    <div class="motto-card"><div class="motto-idx">03</div><div class="motto-letter">U</div><div class="motto-word">Unite</div><div class="motto-desc">Teams beat lone wolves.</div></div>
+    <div class="motto-card"><div class="motto-idx">04</div><div class="motto-letter">D</div><div class="motto-word">Develop</div><div class="motto-desc">Grow as a builder, not just a winner.</div></div>
+  </div>
+</section>
+
+<section class="section" id="tracks">
+  <div class="section-head reveal">
+    <div class="eyebrow">// PICK YOUR ARENA</div>
+    <h2 class="title">Four tracks. One <span class="hl" style="color:var(--cyan)">weekend.</span></h2>
+    <p class="section-desc">Form a team, choose a lane, and ship something you'd be proud to show the world on Monday morning.</p>
+  </div>
+  <div class="track-grid reveal">
+    <div class="track-card">
+      <div class="track-tag">// dev</div>
+      <div class="track-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13 6l-2 12"/></svg></div>
+      <div class="track-title">Software &amp; Web</div>
+      <div class="track-desc">Ship full-stack apps, AI experiments, and web tools that solve real problems.</div>
+      <div class="track-rule"></div>
+    </div>
+    <div class="track-card">
+      <div class="track-tag">// build</div>
+      <div class="track-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg></div>
+      <div class="track-title">Hardware</div>
+      <div class="track-desc">Solder, wire, and prototype physical builds with sensors, boards, and code.</div>
+      <div class="track-rule"></div>
+    </div>
+    <div class="track-card">
+      <div class="track-tag">// play</div>
+      <div class="track-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="8" width="20" height="9" rx="4"/><path d="M7 12h.01M9 12h.01M17 11h.01M17 13h.01"/></svg></div>
+      <div class="track-title">Game Jam</div>
+      <div class="track-desc">From mechanic to playable in 48 hours. Pixel art, 3D, narrative — anything goes.</div>
+      <div class="track-rule"></div>
+    </div>
+    <div class="track-card">
+      <div class="track-tag">// pitch</div>
+      <div class="track-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div>
+      <div class="track-title">Pitch Competition</div>
+      <div class="track-desc">Turn the idea into a story. Pitch judges and win the room with your vision.</div>
+      <div class="track-rule"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="event">
+  <div class="event-panel reveal">
+    <div>
+      <div class="eyebrow">// THE EVENT</div>
+      <h2 class="title">Built in <span class="hl">Houston.</span> Made for you.</h2>
+      <p class="section-desc" style="margin-top:14px;">TripleH lands in the heart of H-Town with workshops, mentors from local startups, late-night snacks, and a stage for every track winner.</p>
+      <div class="event-list">
+        <div class="event-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.5 7-12A7 7 0 105 10c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>Houston, Texas</div>
+        <div class="event-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>48 Hours · Spring 2026</div>
+        <div class="event-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.3 3.1-6 7-6s7 2.7 7 6M17 8a3 3 0 100-6M22 20c0-2.6-2-4.8-4.8-5.6"/></svg>Teams of 1-4 · Ages 13-19</div>
+        <div class="event-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 01-10 0V4z"/><path d="M17 6h3a2 2 0 01-2 4M7 6H4a2 2 0 002 4"/></svg>Prizes per track + grand pitch winner</div>
+      </div>
+    </div>
+    <div class="terminal">
+      <div class="term-top"><span class="term-dot c1"></span><span class="term-dot c2"></span>tripleh@houston:~$</div>
+      <div id="term-output"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="section-head reveal" style="margin:0 auto 50px; text-align:center; max-width:100%;">
+    <div class="eyebrow" style="justify-content:center;">// QUESTIONS</div>
+    <h2 class="title">The <span class="hl">quick</span> answers.</h2>
+  </div>
+  <div class="reveal" style="max-width:800px; margin:0 auto;">
+    <div class="faq-item">
+      <div class="faq-q">Who can join? <span class="faq-plus"></span></div>
+      <div class="faq-a">Any teen aged 13–19, beginner or experienced. No prior hackathon experience needed — just curiosity and a willingness to build.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Do I need a team? <span class="faq-plus"></span></div>
+      <div class="faq-a">Nope. Come solo and form a team on-site during team matching, or bring up to 3 friends. Teams can be 1-4 people.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What does it cost? <span class="faq-plus"></span></div>
+      <div class="faq-a">TripleH is completely free to attend, including meals, snacks, and swag — thanks to our sponsors.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What should I bring? <span class="faq-plus"></span></div>
+      <div class="faq-a">A laptop and charger, a valid ID, any hardware you want to tinker with, and a sleeping bag if you plan to crash during the overnight hours.</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="register">
+  <div class="reveal">
+    <h2>Ready to build the <span class="hl">weekend?</span></h2>
+    <a href="#" class="btn btn-primary" style="padding:16px 32px; font-size:15px;">Register for TripleH
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div>TeensHackHouston · TripleH © 2026</div>
+  <div>C.H.U.D — CODE · HACK · UNITE · DEVELOP</div>
+</footer>
+
+<script>
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  },{ threshold:0.15 });
+  revealEls.forEach(el=>io.observe(el));
+
+  // count-up stats
+  const stats = document.querySelectorAll('.stat-num');
+  const statIO = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const el = entry.target;
+        const target = parseInt(el.dataset.count,10);
+        const prefix = el.dataset.prefix || '';
+        const suffix = el.dataset.suffix || (target>=100 ? '+' : '');
+        let cur = 0;
+        const step = Math.max(1, Math.round(target/40));
+        const tick = ()=>{
+          cur += step;
+          if(cur >= target){ el.textContent = prefix + target + suffix; return; }
+          el.textContent = prefix + cur;
+          requestAnimationFrame(()=>setTimeout(tick, 20));
+        };
+        tick();
+        statIO.unobserve(el);
+      }
+    });
+  },{ threshold:0.5 });
+  stats.forEach(s=>statIO.observe(s));
+
+  // terminal typing effect
+  const termLines = [
+    { text: '$ ./register --event tripleh-2026', cls:'prompt' },
+    { text: '→ initializing teen hacker...' },
+    { text: '→ track: [ software | hardware | game | pitch ]' },
+    { text: '→ location: Houston, TX' },
+    { text: '→ duration: 48h' },
+    { text: '→ status: READY TO BUILD ✓', cls:'ok' },
+    { text: '$ echo "$MOTTO"', cls:'prompt' },
+    { text: 'Code. Hack. Unite. Develop.' },
+  ];
+  const out = document.getElementById('term-output');
+  let lineIdx = 0, charIdx = 0;
+
+  function typeTerminal(){
+    if(lineIdx >= termLines.length){
+      out.innerHTML += '<span class="cursor"></span>';
+      return;
+    }
+    const line = termLines[lineIdx];
+    if(charIdx === 0){
+      const span = document.createElement('div');
+      span.className = line.cls || '';
+      span.dataset.full = line.text;
+      out.appendChild(span);
+    }
+    const currentSpan = out.lastElementChild;
+    charIdx++;
+    currentSpan.textContent = line.text.slice(0, charIdx);
+    if(charIdx <= line.text.length){
+      setTimeout(typeTerminal, 14 + Math.random()*18);
+    } else {
+      lineIdx++; charIdx = 0;
+      setTimeout(typeTerminal, 220);
+    }
+  }
+
+  const termIO = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){ typeTerminal(); termIO.disconnect(); }
+    });
+  },{ threshold:0.3 });
+  termIO.observe(document.querySelector('.terminal'));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    q.addEventListener('click', ()=>{
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(other=>{
+        if(other !== item){
+          other.classList.remove('open');
+          other.querySelector('.faq-a').style.maxHeight = null;
+        }
+      });
+      if(isOpen){
+        item.classList.remove('open');
+        a.style.maxHeight = null;
+      } else {
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 40 + 'px';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
