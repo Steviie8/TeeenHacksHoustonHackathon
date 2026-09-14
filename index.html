@@ -383,6 +383,31 @@
   .donate-section{ text-align:center; padding-top:40px; padding-bottom:50px; }
   .donate-section .section-head{ margin-left:auto; margin-right:auto; }
 
+  /* Sponsor inquiry form */
+  .sponsor-panel{
+    display:grid; grid-template-columns:.85fr 1.15fr; gap:46px; align-items:start;
+    padding:52px; border:2.5px solid var(--ink); border-radius:24px;
+    background:linear-gradient(135deg,var(--panel),var(--bg-2));
+    box-shadow:7px 7px 0 rgba(0,0,0,.35);
+  }
+  .sponsor-perks{ display:grid; gap:13px; margin-top:26px; }
+  .sponsor-perk{ display:flex; align-items:center; gap:10px; color:var(--muted); font-size:14px; }
+  .sponsor-perk span{ color:var(--yellow); font-family:var(--mono); font-weight:700; }
+  .sponsor-form{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+  .sponsor-field{ display:grid; gap:7px; }
+  .sponsor-field.full{ grid-column:1 / -1; }
+  .sponsor-field label{ font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.08em; color:var(--muted); text-transform:uppercase; }
+  .sponsor-field input, .sponsor-field textarea{
+    width:100%; border:1.5px solid var(--panel-border); border-radius:10px;
+    background:rgba(12,16,36,.58); color:var(--text); padding:13px 14px;
+    font:400 14px var(--display); outline:none; transition:border-color .2s ease, box-shadow .2s ease;
+  }
+  .sponsor-field textarea{ min-height:132px; resize:vertical; }
+  .sponsor-field input::placeholder, .sponsor-field textarea::placeholder{ color:var(--muted-2); }
+  .sponsor-field input:focus, .sponsor-field textarea:focus{ border-color:var(--yellow); box-shadow:0 0 0 3px rgba(255,209,102,.16); }
+  .sponsor-submit{ justify-self:start; margin-top:4px; }
+  .sponsor-note{ grid-column:1 / -1; color:var(--muted-2); font-size:12px; }
+
   footer{
     display:flex; justify-content:space-between; align-items:center;
     padding:26px 48px; border-top:1px solid rgba(255,255,255,0.05);
@@ -401,6 +426,7 @@
     .track-grid{ grid-template-columns:1fr; }
     .team-grid{ grid-template-columns:repeat(2,1fr); }
     .event-panel{ grid-template-columns:1fr; padding:32px; }
+    .sponsor-panel{ grid-template-columns:1fr; padding:32px; gap:32px; }
     footer{ flex-direction:column; gap:10px; text-align:center; }
   }
   @media(max-width:600px){
@@ -409,6 +435,8 @@
     .sound-label{ display:none; }
     nav > .nav-actions > .btn{ padding:10px 13px; font-size:13px; }
     .team-grid{ grid-template-columns:1fr; }
+    .sponsor-form{ grid-template-columns:1fr; }
+    .sponsor-field.full, .sponsor-note{ grid-column:auto; }
   }
 
   @media(prefers-reduced-motion:reduce){
@@ -434,6 +462,7 @@
     <a href="#tracks">Tracks</a>
     <a href="#chud">C.H.U.D</a>
     <a href="#event">Event</a>
+    <a href="#sponsor">Sponsor</a>
     <a href="#about">About</a>
     <a href="#faq">FAQ</a>
     <a href="#donate">Donate</a>
@@ -601,6 +630,47 @@
   </a>
 </section>
 
+<section class="section" id="sponsor">
+  <div class="sponsor-panel reveal">
+    <div>
+      <div class="eyebrow">// PARTNER WITH TRIPLEH</div>
+      <h2 class="title">Help Houston teens <span class="hl">build big.</span></h2>
+      <p class="section-desc">Your sponsorship helps make TripleH free, welcoming, and memorable for every young builder who joins us.</p>
+      <div class="sponsor-perks">
+        <div class="sponsor-perk"><span>01</span> Support the next generation of builders.</div>
+        <div class="sponsor-perk"><span>02</span> Put your brand in front of Houston students.</div>
+        <div class="sponsor-perk"><span>03</span> Help fund food, prizes, swag, and more.</div>
+      </div>
+    </div>
+    <form class="sponsor-form" action="https://formsubmit.co/teenshackhouston@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="New TripleH sponsorship inquiry">
+      <input type="hidden" name="_template" value="table">
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
+      <div class="sponsor-field">
+        <label for="sponsor-name">Your name</label>
+        <input id="sponsor-name" name="name" type="text" autocomplete="name" placeholder="Jane Doe" required>
+      </div>
+      <div class="sponsor-field">
+        <label for="sponsor-email">Email</label>
+        <input id="sponsor-email" name="email" type="email" autocomplete="email" placeholder="jane@company.com" required>
+      </div>
+      <div class="sponsor-field full">
+        <label for="sponsor-company">Company or organization</label>
+        <input id="sponsor-company" name="company" type="text" autocomplete="organization" placeholder="Your organization">
+      </div>
+      <div class="sponsor-field full">
+        <label for="sponsor-message">How would you like to support TripleH?</label>
+        <textarea id="sponsor-message" name="message" placeholder="Tell us about your sponsorship idea, budget, in-kind donation, or question." required></textarea>
+      </div>
+      <button class="btn btn-primary sponsor-submit" type="submit">Send sponsorship inquiry
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+      <p class="sponsor-note">We’ll reply to the email you provide. Prefer email? Reach us at <a href="mailto:teenshackhouston@gmail.com" style="color:var(--cyan);">teenshackhouston@gmail.com</a>.</p>
+    </form>
+  </div>
+</section>
+
+<!--
 <section class="cta" id="register">
   <div class="reveal">
     <h2>Ready to build the <span class="hl">week?</span></h2>
@@ -610,6 +680,7 @@
     <p style="font-family:var(--mono); font-size:12px; color:var(--muted-2); margin-top:18px;">Full registration opens soon — this gets you on the list.</p>
   </div>
 </section>
+-->
 
 <footer>
   <div>TeensHackHouston · TripleH © 2026 · built with capybara energy 🐾</div>
