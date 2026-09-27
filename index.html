@@ -329,7 +329,7 @@
 
   /* about / team */
   .team-grid{
-    display:grid; grid-template-columns:repeat(5,1fr); gap:24px;
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:24px;
   }
   .team-card{
     background:var(--panel); border:2.5px solid var(--ink); border-radius:20px;
@@ -472,8 +472,8 @@
     <button class="sound-toggle" id="sound-toggle" type="button" aria-pressed="true" aria-label="Mute sound effects">
       <span class="sound-toggle-icon" aria-hidden="true">♪</span><span class="sound-label">Sound on</span>
     </button>
-    <a href="https://forms.gle/9Wqisoe6LZ9BsRaJ9" target="_blank" rel="noopener" class="btn btn-primary">Interest Form</a>
-    <a href="https://tripleh.devpost.com/?_gl=1*i1vyvk*_gcl_au*MTcxODI5MDM0Mi4xNzg2ODA3MTA3*_ga*Mzg4NzcwMzYuMTc4NjgwNzEwNw..*_ga_0YHJK3Y10M*czE3OTAwMTQ1MzckbzckZzEkdDE3OTAwMTc4NzkkajUwJGwwJGgw" target="_blank" rel="noopener" class="btn btn-ghost">Devpost</a>
+    <a href="https://tripleh.devpost.com/?_gl=1*i1vyvk*_gcl_au*MTcxODI5MDM0Mi4xNzg2ODA3MTA3*_ga*Mzg4NzcwMzYuMTc4NjgwNzEwNw..*_ga_0YHJK3Y10M*czE3OTAwMTQ1MzckbzckZzEkdDE3OTAwMTc4NzkkajUwJGwwJGgw" target="_blank" rel="noopener" class="btn btn-primary">Devpost</a>
+    <a href="https://discord.gg/PtuEA9TSfx" target="_blank" rel="noopener" class="btn btn-ghost">Discord</a>
   </div>
 </nav>
 
@@ -491,12 +491,11 @@
   <div class="hero-sub">// TRIPLEH — T.H.H</div>
   <p class="hero-desc">Seven days of building from home, followed by an in-person finale. Software and business ideas — built by teens, for teens. One motto: <b>Code. Hack. Unite. Develop.</b></p>
   <div class="hero-ctas">
-    <a href="https://forms.gle/9Wqisoe6LZ9BsRaJ9" target="_blank" rel="noopener" class="btn btn-primary">Claim your spot
+    <a href="https://tripleh.devpost.com/?_gl=1*i1vyvk*_gcl_au*MTcxODI5MDM0Mi4xNzg2ODA3MTA3*_ga*Mzg4NzcwMzYuMTc4NjgwNzEwNw..*_ga_0YHJK3Y10M*czE3OTAwMTQ1MzckbzckZzEkdDE3OTAwMTc4NzkkajUwJGwwJGgw" target="_blank" rel="noopener" class="btn btn-primary">Register on Devpost
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
-    <a href="https://tripleh.devpost.com/?_gl=1*i1vyvk*_gcl_au*MTcxODI5MDM0Mi4xNzg2ODA3MTA3*_ga*Mzg4NzcwMzYuMTc4NjgwNzEwNw..*_ga_0YHJK3Y10M*czE3OTAwMTQ1MzckbzckZzEkdDE3OTAwMTc4NzkkajUwJGwwJGgw" target="_blank" rel="noopener" class="btn btn-ghost">Register on Devpost</a>
+    <a href="https://discord.gg/PtuEA9TSfx" target="_blank" rel="noopener" class="btn btn-primary">Join Discord</a>
     <a href="#tracks" class="btn btn-ghost">Explore tracks</a>
-    <a href="https://discord.gg/PtuEA9TSfx" target="_blank" rel="noopener" class="btn btn-ghost">Join Discord</a>
     <div class="stamp">100%<br>FREE</div>
   </div>
   <div class="stats">
@@ -582,8 +581,8 @@
       <div class="team-info"><h3 class="team-name">Ethan He</h3><div class="team-role">Co-Founder</div><p class="team-bio">Senior at Glenda Dawson High School.</p><a class="team-email" href="mailto:yichenghee@gmail.com">yichenghee@gmail.com</a></div>
     </article>
     <article class="team-card">
-      <img class="team-photo" src="assets/steven-xu.png" alt="Steven Xu, TripleH co-founder">
-      <div class="team-info"><h3 class="team-name">Steven Xu</h3><div class="team-role">Co-Founder &amp; Partnerships Lead</div><p class="team-bio">Senior at Glenda Dawson High School.</p><a class="team-email" href="mailto:stevenxu723@gmail.com">stevenxu723@gmail.com</a></div>
+      <img class="team-photo" src="assets/steven-xu.png" alt="Steven Xu, TripleH co-founder and sponsorship lead">
+      <div class="team-info"><h3 class="team-name">Steven Xu</h3><div class="team-role">Co-Founder &amp; Sponsorship Lead</div><p class="team-bio">Senior at Glenda Dawson High School.</p><a class="team-email" href="mailto:stevenxu723@gmail.com">stevenxu723@gmail.com</a></div>
     </article>
     <article class="team-card">
       <img class="team-photo" src="assets/boyu-wu.jpg" alt="Boyu Wu, TripleH co-founder">
@@ -592,6 +591,10 @@
     <article class="team-card">
       <img class="team-photo" src="assets/grace-wang.jpg" alt="Grace Wang, TripleH social media lead">
       <div class="team-info"><h3 class="team-name">Grace Wang</h3><div class="team-role">Social Media Lead</div><p class="team-bio">Leading TripleH’s social presence and community updates.</p></div>
+    </article>
+    <article class="team-card">
+      <img class="team-photo" src="assets/Alex-nazario.jpg" alt="Alex Nazario, TripleH judges and sponsorship team member">
+      <div class="team-info"><h3 class="team-name">Alex Nazario</h3><div class="team-role">Judges &amp; Sponsorship Team</div><p class="team-bio">Supporting TripleH’s judging and sponsorship efforts.</p></div>
     </article>
   </div>
 </section>
