@@ -334,7 +334,7 @@
     width:100%; margin:0 auto;
   }
   .team-tier-founders{ max-width:880px; }
-  .team-tier-members{ max-width:1100px; }
+  .team-tier-members{ max-width:1100px; grid-template-columns:repeat(5,minmax(0,1fr)); }
   .team-card{
     background:var(--panel); border:2.5px solid var(--ink); border-radius:20px;
     overflow:hidden; box-shadow:5px 5px 0 rgba(0,0,0,.35);
@@ -344,6 +344,10 @@
   .team-card:nth-child(even){ transform:rotate(.7deg); }
   .team-card:hover{ transform:translateY(-6px) rotate(0); box-shadow:8px 9px 0 rgba(0,0,0,.4); }
   .team-photo{ width:100%; aspect-ratio:1 / 1; object-fit:cover; object-position:center; display:block; }
+  .team-photo--placeholder{
+    display:grid; place-items:center; background:linear-gradient(135deg,var(--purple),var(--blue));
+    color:var(--yellow); font:800 clamp(48px,7vw,76px)/1 var(--fun);
+  }
   .team-info{ padding:22px 20px 24px; }
   .team-name{ font-family:var(--fun); font-size:22px; font-weight:800; }
   .team-role{ color:var(--yellow); font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; margin:4px 0 12px; }
@@ -429,6 +433,7 @@
     .motto-grid{ grid-template-columns:repeat(2,1fr); }
     .track-grid{ grid-template-columns:1fr; }
     .team-tier{ grid-template-columns:repeat(2,1fr); }
+    .team-tier-members{ grid-template-columns:repeat(2,1fr); }
     .event-panel{ grid-template-columns:1fr; padding:32px; }
     .sponsor-panel{ grid-template-columns:1fr; padding:32px; gap:32px; }
     footer{ flex-direction:column; gap:10px; text-align:center; }
@@ -439,6 +444,7 @@
     .sound-label{ display:none; }
     nav > .nav-actions > .btn{ padding:10px 13px; font-size:13px; }
     .team-tier{ grid-template-columns:1fr; }
+    .team-tier-members{ grid-template-columns:1fr; }
     .sponsor-form{ grid-template-columns:1fr; }
     .sponsor-field.full, .sponsor-note{ grid-column:auto; }
   }
@@ -610,6 +616,10 @@
     <article class="team-card">
       <img class="team-photo" src="assets/Nazzer-Hoque.png" alt="Nazzer Hoque, TripleH sponsorship team and judge">
       <div class="team-info"><h3 class="team-name">Nazzer Hoque</h3><div class="team-role">Sponsorship Team &amp; Judge</div><p class="team-bio">Supporting TripleH's judging and sponsorship efforts.</p></div>
+    </article>
+    <article class="team-card">
+      <div class="team-photo team-photo--placeholder" role="img" aria-label="Barrett's photo coming soon">B</div>
+      <div class="team-info"><h3 class="team-name">Barrett</h3><div class="team-role">Sponsorship Team</div><p class="team-bio">Photo coming soon.</p></div>
     </article>
   </div>
   </div>
