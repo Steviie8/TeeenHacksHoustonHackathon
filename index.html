@@ -334,7 +334,10 @@
     width:100%; margin:0 auto;
   }
   .team-tier-founders{ max-width:880px; }
-  .team-tier-members{ max-width:1100px; grid-template-columns:repeat(5,minmax(0,1fr)); }
+  .team-tier-members{ max-width:202px; grid-template-columns:1fr; }
+  .team-tier-group{ display:grid; gap:20px; }
+  .team-tier-label{ color:var(--pink); font:700 12px var(--mono); letter-spacing:.16em; text-align:center; text-transform:uppercase; }
+  .team-tier-sponsorship{ max-width:654px; grid-template-columns:repeat(3,minmax(0,1fr)); }
   .team-card{
     background:var(--panel); border:2.5px solid var(--ink); border-radius:20px;
     overflow:hidden; box-shadow:5px 5px 0 rgba(0,0,0,.35);
@@ -417,6 +420,25 @@
   .sponsor-submit{ justify-self:start; margin-top:4px; }
   .sponsor-note{ grid-column:1 / -1; color:var(--muted-2); font-size:12px; }
 
+  /* sponsors showcase */
+  .sponsors-section{ text-align:center; }
+  .sponsors-section .section-head{ margin-left:auto; margin-right:auto; }
+  .sponsor-showcase-grid{ max-width:980px; margin:0 auto; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px; }
+  .sponsor-showcase{
+    min-height:330px; margin:0; padding:38px;
+    display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:28px;
+    background:linear-gradient(135deg,var(--panel),var(--bg-2)); color:var(--text); border:2.5px solid var(--ink); border-radius:24px;
+    box-shadow:7px 7px 0 rgba(0,0,0,.35); text-align:left; transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .sponsor-showcase-link:hover{ transform:translateY(-5px); box-shadow:9px 10px 0 rgba(0,0,0,.4); }
+  .sponsor-showcase-logo{ width:min(100%,300px); height:110px; object-fit:contain; object-position:left center; display:block; }
+  .sponsor-showcase-logo--hack-club{ width:100px; height:100px; border-radius:18px; object-fit:cover; }
+  .sponsor-showcase-copy{ border-top:1px solid var(--panel-border); padding-top:22px; width:100%; }
+  .sponsor-showcase-type{ font:700 11px var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--cyan); }
+  .sponsor-showcase-name{ font:800 32px/1.05 var(--fun); margin:8px 0; }
+  .sponsor-showcase-copy p{ color:var(--muted); font-size:14px; max-width:290px; }
+  .sponsor-showcase-visit{ color:var(--yellow); font:700 11px var(--mono); letter-spacing:.06em; text-transform:uppercase; }
+
   footer{
     display:flex; justify-content:space-between; align-items:center;
     padding:26px 48px; border-top:1px solid rgba(255,255,255,0.05);
@@ -434,9 +456,10 @@
     .motto-grid{ grid-template-columns:repeat(2,1fr); }
     .track-grid{ grid-template-columns:1fr; }
     .team-tier{ grid-template-columns:repeat(2,1fr); }
-    .team-tier-members{ grid-template-columns:repeat(2,1fr); }
+    .team-tier-sponsorship{ grid-template-columns:repeat(2,1fr); }
     .event-panel{ grid-template-columns:1fr; padding:32px; }
     .sponsor-panel{ grid-template-columns:1fr; padding:32px; gap:32px; }
+    .sponsor-showcase{ padding:32px; }
     footer{ flex-direction:column; gap:10px; text-align:center; }
   }
   @media(max-width:600px){
@@ -445,9 +468,12 @@
     .sound-label{ display:none; }
     nav > .nav-actions > .btn{ padding:10px 13px; font-size:13px; }
     .team-tier{ grid-template-columns:1fr; }
-    .team-tier-members{ grid-template-columns:1fr; }
+    .team-tier-sponsorship{ grid-template-columns:1fr; }
     .sponsor-form{ grid-template-columns:1fr; }
     .sponsor-field.full, .sponsor-note{ grid-column:auto; }
+    .sponsor-showcase-grid{ grid-template-columns:1fr; }
+    .sponsor-showcase{ padding:30px; }
+    .sponsor-showcase-copy{ padding-top:24px; }
   }
 
   @media(prefers-reduced-motion:reduce){
@@ -473,7 +499,7 @@
     <a href="#tracks">Tracks</a>
     <a href="#chud">C.H.U.D</a>
     <a href="#event">Event</a>
-    <a href="#sponsor">Sponsor</a>
+    <a href="#sponsors">Sponsors</a>
     <a href="#about">About</a>
     <a href="#faq">FAQ</a>
     <a href="#donate">Donate</a>
@@ -585,51 +611,57 @@
   <div class="team-pyramid">
     <div class="team-tier team-tier-founders reveal" aria-label="Co-founders">
     <article class="team-card">
-      <img class="team-photo" src="assets/steven-xu.png" alt="Steven Xu, TripleH co-founder and sponsorship lead">
+      <img class="team-photo" src="assets/People/steven-xu.png" alt="Steven Xu, TripleH co-founder and sponsorship lead">
       <div class="team-info"><h3 class="team-name">Steven Xu</h3><div class="team-role">Co-Founder &amp; Sponsorship Lead</div><p class="team-bio">Senior at Glenda Dawson High School.</p><a class="team-email" href="mailto:stevenxu723@gmail.com">stevenxu723@gmail.com</a></div>
     </article>
     <article class="team-card">
-      <img class="team-photo" src="assets/jennifer-shen.png" alt="Jennifer Shen, TripleH co-founder and outreach lead">
+      <img class="team-photo" src="assets/People/jennifer-shen.png" alt="Jennifer Shen, TripleH co-founder and outreach lead">
       <div class="team-info"><h3 class="team-name">Jennifer Shen</h3><div class="team-role">Co-Founder &amp; Outreach Lead</div><p class="team-bio">Senior at Glenda Dawson High School.</p><a class="team-email" href="mailto:jennifershen018@gmail.com">jennifershen018@gmail.com</a></div>
     </article>
     <article class="team-card">
-      <img class="team-photo" src="assets/ethan-he.jpg" alt="Ethan He, TripleH co-founder">
+      <img class="team-photo" src="assets/People/ethan-he.jpg" alt="Ethan He, TripleH co-founder">
       <div class="team-info"><h3 class="team-name">Ethan He</h3><div class="team-role">Co-Founder</div><p class="team-bio">Senior at Glenda Dawson High School.</p><a class="team-email" href="mailto:yichenghee@gmail.com">yichenghee@gmail.com</a></div>
     </article>
     <article class="team-card">
-      <img class="team-photo" src="assets/boyu-wu.jpg" alt="Boyu Wu, TripleH co-founder">
+      <img class="team-photo" src="assets/People/boyu-wu.jpg" alt="Boyu Wu, TripleH co-founder">
       <div class="team-info"><h3 class="team-name">Boyu Wu</h3><div class="team-role">Co-Founder &amp; Sponsorship Team</div><p class="team-bio">Senior at Glenda Dawson High School.</p><a class="team-email" href="mailto:boyumanvel@gmail.com">boyumanvel@gmail.com</a></div>
     </article>
     </div>
     <div class="team-tier team-tier-members reveal" aria-label="Team members">
     <article class="team-card">
-      <img class="team-photo" src="assets/grace-wang.jpg" alt="Grace Wang, TripleH social media lead">
+      <img class="team-photo" src="assets/People/grace-wang.jpg" alt="Grace Wang, TripleH social media lead">
       <div class="team-info"><h3 class="team-name">Grace Wang</h3><div class="team-role">Social Media Lead</div><p class="team-bio">Leading TripleH’s social presence and community updates.</p></div>
     </article>
+    </div>
+    <div class="team-tier-group">
+      <div class="team-tier-label">// Sponsorship Team</div>
+      <div class="team-tier team-tier-sponsorship reveal" aria-label="Sponsorship team">
     <article class="team-card">
-      <img class="team-photo" src="assets/david-steir.jpg" alt="David Steir, TripleH sponsorship team member">
+      <img class="team-photo" src="assets/People/david-steir.jpg" alt="David Steir, TripleH sponsorship team member">
       <div class="team-info"><h3 class="team-name">David Steir</h3><div class="team-role">Sponsorship Team</div><p class="team-bio">Supporting TripleH's sponsorship efforts.</p></div>
     </article>
     <article class="team-card">
-      <img class="team-photo" src="assets/Alex-nazario.jpg" alt="Alex Nazario, TripleH sponsorship team and judge">
+      <img class="team-photo" src="assets/People/Alex-nazario.jpg" alt="Alex Nazario, TripleH sponsorship team and judge">
       <div class="team-info"><h3 class="team-name">Alex Nazario</h3><div class="team-role">Sponsorship Team &amp; Judge</div><p class="team-bio">Supporting TripleH's judging and sponsorship efforts.</p></div>
     </article>
     <article class="team-card">
-      <img class="team-photo" src="assets/Nazzer-Hoque.png" alt="Nazzer Hoque, TripleH sponsorship team and judge">
+      <img class="team-photo" src="assets/People/Nazzer-Hoque.png" alt="Nazzer Hoque, TripleH sponsorship team and judge">
       <div class="team-info"><h3 class="team-name">Nazzer Hoque</h3><div class="team-role">Sponsorship Team &amp; Judge</div><p class="team-bio">Supporting TripleH's judging and sponsorship efforts.</p></div>
     </article>
     <article class="team-card">
-      <img class="team-photo team-photo--face-high" src="assets/Iris-Wu.jpg" alt="Iris Wu, TripleH sponsorship team member">
+      <img class="team-photo team-photo--face-high" src="assets/People/Iris-Wu.jpg" alt="Iris Wu, TripleH sponsorship team member">
       <div class="team-info"><h3 class="team-name">Iris Wu</h3><div class="team-role">Sponsorship Team</div><p class="team-bio">Supporting TripleH's sponsorship efforts.</p></div>
     </article>
     <article class="team-card">
-      <img class="team-photo team-photo--face-high" src="assets/Ivan-Asare-Boahene.jpg" alt="Ivan Asare-Boahene, TripleH sponsorship team member">
+      <img class="team-photo team-photo--face-high" src="assets/People/Ivan-Asare-Boahene.jpg" alt="Ivan Asare-Boahene, TripleH sponsorship team member">
       <div class="team-info"><h3 class="team-name">Ivan Asare-Boahene</h3><div class="team-role">Sponsorship Team</div><p class="team-bio">Supporting TripleH's sponsorship efforts.</p></div>
     </article>
     <article class="team-card">
       <div class="team-photo team-photo--placeholder" role="img" aria-label="Barrett's photo coming soon">B</div>
       <div class="team-info"><h3 class="team-name">Barrett</h3><div class="team-role">Sponsorship Team</div><p class="team-bio">Photo coming soon.</p></div>
     </article>
+      </div>
+    </div>
   </div>
   </div>
 </section>
@@ -683,6 +715,34 @@
       </button>
       <p class="sponsor-note">We’ll reply to the email you provide. Prefer email? Reach us at <a href="mailto:teenshackhouston@gmail.com" style="color:var(--cyan);">teenshackhouston@gmail.com</a>.</p>
     </form>
+  </div>
+</section>
+
+<section class="section sponsors-section" id="sponsors" aria-labelledby="sponsors-title">
+  <div class="section-head reveal">
+    <div class="eyebrow" style="justify-content:center;">// OUR SUPPORTERS</div>
+    <h2 class="title" id="sponsors-title">Meet our <span class="hl">sponsors.</span></h2>
+    <p class="section-desc">TripleH is free for every participant thanks to organizations that believe in young builders.</p>
+  </div>
+  <div class="sponsor-showcase-grid reveal">
+    <a class="sponsor-showcase sponsor-showcase-link" href="https://www.kariaa.com/" target="_blank" rel="noopener" aria-label="Visit Kariaa's website">
+      <img class="sponsor-showcase-logo" src="assets/Logos/kariaa_bold_transparent.svg" alt="Kariaa">
+      <div class="sponsor-showcase-copy">
+        <div class="sponsor-showcase-type">Featured Sponsor</div>
+        <h3 class="sponsor-showcase-name">Kariaa</h3>
+        <p>Thank you for supporting TripleH and the next generation of Houston builders.</p>
+      </div>
+      <span class="sponsor-showcase-visit">Visit website ↗</span>
+    </a>
+    <a class="sponsor-showcase sponsor-showcase-link" href="https://hackclub.com/" target="_blank" rel="noopener" aria-label="Visit Hack Club's website">
+      <img class="sponsor-showcase-logo sponsor-showcase-logo--hack-club" src="assets/Logos/images.jpeg" alt="Hack Club">
+      <div class="sponsor-showcase-copy">
+        <div class="sponsor-showcase-type">Featured Sponsor</div>
+        <h3 class="sponsor-showcase-name">Hack Club</h3>
+        <p>Thank you for helping make TripleH possible for teen builders in Houston.</p>
+      </div>
+      <span class="sponsor-showcase-visit">Visit website ↗</span>
+    </a>
   </div>
 </section>
 
